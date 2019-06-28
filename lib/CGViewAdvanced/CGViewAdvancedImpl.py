@@ -185,7 +185,7 @@ class CGViewAdvanced:
         pdf = FPDF()
         image = jpg_file
         pdf.add_page()
-        pdf.image(image, 0, 0, 800, 800)
+        pdf.image(image, 0, 0, -800, -800)
         pdf.output(pdf_file, "F")
 
         # Test example output - works
@@ -199,10 +199,10 @@ class CGViewAdvanced:
         jpg_path = os.path.join(jpg_file)
         svg_path = os.path.join(svg_file)
         pdf_path = os.path.join(pdf_file)
-        png_dict = {"path":png_path, 'name': base+'_PNG'}
-        jpg_dict = {"path":jpg_path, 'name': base+'_JPG'}
-        svg_dict = {"path":svg_path, 'name': base+'_SVG'}
-        pdf_dict = {"path":pdf_path, 'name': base+'_PDF'}
+        png_dict = {"path":png_path, 'name': base+'.png'}
+        jpg_dict = {"path":jpg_path, 'name': base+'.jpg'}
+        svg_dict = {"path":svg_path, 'name': base+'.svg'}
+        pdf_dict = {"path":pdf_path, 'name': base+'.pdf'}
 
         html_dict = {'path':png_path,'name':base+'Circular Genome Map'}
         report_client = KBaseReport(self.callback_url)
