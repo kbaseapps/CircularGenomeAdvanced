@@ -173,9 +173,9 @@ class CGViewAdvanced:
         png_file = os.path.join(image_output_dir, base+".png")
         jpg_file = os.path.join(image_output_dir, base+".jpg")
         svg_file = os.path.join(image_output_dir, base+".svg")
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-D", "40", "-W", "600", "-H", "600"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-D", "40", "-W", "600", "-H", "600"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-D", "40", "-W", "600", "-H", "600"])
 
         print("=====image output dir", os.listdir(image_output_dir))
 
