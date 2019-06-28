@@ -164,20 +164,6 @@
             }
         },
         {
-            "id": "tick_density",
-            "optional":true,
-            "advanced":true,
-            "allow_multiple":false,
-            "default_values":["0.5"],
-            "field_type" : "text",
-            "text_options":
-            {
-                "validate_as": "float",
-                "min_int" : 0.0,
-                "max_int" : 1.0
-            }
-        },
-        {
             "id": "details",
             "optional":true,
             "advanced":true,

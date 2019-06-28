@@ -75,7 +75,7 @@ class CGViewAdvanced:
         orfs = params['orfs']
         combined_orfs = params['combined_orfs']
         orf_size = params['orf_size']
-        tick_density = params['tick_density']
+        # tick_density = params['tick_density']
         details = params['details']
         legend = params['legend']
         condensed = params['condensed']

@@ -97,12 +97,6 @@ parameters :
         short-hint :
             The minimum length of ORFs (in codons) to show when using
             the 'Orfs' or 'Combined Orfs' options. Default is 100.
-    tick_density :
-        ui-name : |
-            Tick Density
-        short-hint :
-            The density of the tick marks on the map. Use a
-            smaller value to make the ticks less dense.
     details :
         ui-name : |
             Details
