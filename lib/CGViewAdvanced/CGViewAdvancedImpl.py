@@ -2,9 +2,9 @@
 #BEGIN_HEADER
 import logging
 import os
-import sys
 import ntpath
 import subprocess
+from fpdf import FPDF
 from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
 from installed_clients.KBaseReportClient import KBaseReport
@@ -173,11 +173,20 @@ class CGViewAdvanced:
         png_file = os.path.join(image_output_dir, base+".png")
         jpg_file = os.path.join(image_output_dir, base+".jpg")
         svg_file = os.path.join(image_output_dir, base+".svg")
+        pdf_file = os.path.join(image_output_dir, base+".pdf")
+
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
 
         print("=====image output dir", os.listdir(image_output_dir))
+
+        # Create pdf output
+        pdf = FPDF()
+        image = jpg_file
+        pdf.add_page()
+        pdf.image(image)
+        pdf.output(pdf_file, "F")
 
         # Test example output - works
         # os.chdir("/opt/cgview")
@@ -189,16 +198,18 @@ class CGViewAdvanced:
         png_path = os.path.join(png_file)
         jpg_path = os.path.join(jpg_file)
         svg_path = os.path.join(svg_file)
-        png_dict = {"path":png_path, 'name': 'Circular_Genome_Map_PNG'}
-        jpg_dict = {"path":jpg_path, 'name': 'Circular_Genome_Map_JPG'}
-        svg_dict = {"path":svg_path, 'name': 'Circular_Genome_Map_SVG'}
+        pdf_path = os.path.join(pdf_file)
+        png_dict = {"path":png_path, 'name': base+'_PNG'}
+        jpg_dict = {"path":jpg_path, 'name': base+'_JPG'}
+        svg_dict = {"path":svg_path, 'name': base+'_SVG'}
+        pdf_dict = {"path":pdf_path, 'name': base+'_PDF'}
 
-        html_dict = {'path':png_path,'name':'Circular Genome Map'}
+        html_dict = {'path':png_path,'name':base+'Circular Genome Map'}
         report_client = KBaseReport(self.callback_url)
         report_info = report_client.create_extended_report({
             'direct_html_link_index': 0,
             'html_links':[html_dict],
-            'file_links':[png_dict, jpg_dict, svg_dict],
+            'file_links':[png_dict, jpg_dict, svg_dict, pdf_dict],
             'workspace_name': params['workspace_name'],
             'html_window_height':800,
             'summary_window_height':800

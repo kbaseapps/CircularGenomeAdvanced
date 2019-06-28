@@ -7,10 +7,14 @@ MAINTAINER KBase Developer
 # installation scripts.
 
 # RUN apt-get update
+
 RUN cd /opt && \
     apt-get update -qq && \
+    apt-get -y install python-pip && \
+    pip install fpdf && \
     git clone https://github.com/happykhan/BRIG.git && \
     cp -r BRIG/cgview ./ && \
+    rm -r BRIG && \
     apt-get install -yq --no-install-recommends \
                                                 git \
                                                 less \
