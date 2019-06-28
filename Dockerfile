@@ -8,9 +8,19 @@ MAINTAINER KBase Developer
 
 # RUN apt-get update
 RUN cd /opt && \
+    apt-get update -qq && \
     curl -O -J -L http://wishart.biology.ualberta.ca/cgview/application/cgview.zip && \
     unzip cgview.zip && \
-    rm cgview.zip
+    rm cgview.zip && \
+    apt-get install -yq --no-install-recommends \
+                                                git \
+                                                less \
+                                                wget \
+                                                libdatetime-perl \
+                                                libxml-simple-perl \
+                                                libdigest-md5-perl \
+                                                bioperl
+
 
 # -----------------------------------------
 

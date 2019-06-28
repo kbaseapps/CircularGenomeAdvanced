@@ -27,8 +27,8 @@ class CGViewAdvanced:
     # the latter method is running.
     ######################################### noqa
     VERSION = "0.0.1"
-    GIT_URL = "https://github.com/kellyhuang21/CircularGenomeAdvanced.git"
-    GIT_COMMIT_HASH = "4beb228f8fd231e6fcb2ec846d3cf1fe0c87518e"
+    GIT_URL = ""
+    GIT_COMMIT_HASH = ""
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -62,7 +62,6 @@ class CGViewAdvanced:
             raise ValueError('Parameter input_file is not set in input arguments')
 
         # Setting all input parameters
-        print("=====params", params)
         input_file = params['input_file']
         gc_content = params['gc_content']
         gc_skew = params['gc_skew']
@@ -70,6 +69,8 @@ class CGViewAdvanced:
         at_skew = params['at_skew']
         average = params['average']
         scale = params['scale']
+        step = params['step']
+        window = params['window']
 
 
         # Make output directory and subdirectories
@@ -102,34 +103,33 @@ class CGViewAdvanced:
         subprocess.call(["mv", gbff_path, gbk_path])
 
         # Create list of parameters to call
-        cmd = []
-        if gc_content == 0:
+        cmd = list()
+        if gc_content is False:
             cmd.extend(["-gc_content", "F"])
-        if gc_skew == 1:
+        if gc_skew:
             cmd.extend(["-gc_skew", "T"])
-        if at_content == 1:
+        if at_content:
             cmd.extend(["-at_content", "T"])
-        if at_skew == 1:
+        if at_skew:
             cmd.extend(["-at_skew", "T"])
-        if average == 0:
+        if average is False:
             cmd.extend(["-average", "F"])
-        if scale == 0:
+        if scale is False:
             cmd.extend(["-scale", "F"])
 
-        print("====set cmd", cmd)
-
-        # Build XML file from Genbank
+        # Build xml file from genbank
         os.chdir("/opt/cgview/cgview_xml_builder")
         xml_file = os.path.join(xml_output_dir, base+".xml")
         print("=====", os.listdir("/opt/cgview/cgview_xml_builder"))
         print("===== path to gbk", gbk_path)
         required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file]
-        exec_cmd = required_cmd + cmd
+        exec_cmd = required_cmd.extend(cmd)
         print("=====final cmd", exec_cmd)
-        subprocess.call(exec_cmd)
-        print("=====xml output dir", os.listdir(xml_output_dir))
 
-        # Create image from XML
+        subprocess.call(exec_cmd)
+
+        print("=====xml output dir", os.listdir(xml_output_dir))
+        # Create image from xml
         os.chdir("/opt/cgview")
         png_file = os.path.join(image_output_dir, base+".png")
         svg_file = os.path.join(image_output_dir, base+".svg")
@@ -139,23 +139,21 @@ class CGViewAdvanced:
         print("=====image output dir", os.listdir(image_output_dir))
 
         # Test example output - works
-        # os.chdir("/opt/cgview")
-        # test_output_file_path = os.path.join(output_dir, "cybercell.png")
-        # subprocess.call(["java", "-jar", "cgview.jar", "-i", "cybercell.xml", "-o", test_output_file_path, "-f", "png"])
-        print("==== output png correctly", os.listdir(output_dir))
+        os.chdir("/opt/cgview")
+        test_output_file_path = os.path.join(output_dir, "cybercell.png")
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", "cybercell.xml", "-o", test_output_file_path, "-f", "png"])
+        print("==== output png correctly", os.listdir(output_dir) )
 
         # Create Report
-        png_path = os.path.join(png_file)
-        svg_path = os.path.join(svg_file)
+        png_path = os.path.join(test_output_file_path)
         png_dict = {"path":png_path, 'name': 'Circular_Genome_Map_PNG'}
-        svg_dict = {"path":svg_path, 'name': 'Circular_Genome_Map_SVG'}
-
+        # html_path = "/"
         html_dict = {'path':png_path,'name':'Circular Genome Map'}
         report_client = KBaseReport(self.callback_url)
         report_info = report_client.create_extended_report({
             'direct_html_link_index': 0,
             'html_links':[html_dict],
-            'file_links':[png_dict, svg_dict],
+            'file_links':[png_dict],
             'workspace_name': params['workspace_name']
         })
         output = {

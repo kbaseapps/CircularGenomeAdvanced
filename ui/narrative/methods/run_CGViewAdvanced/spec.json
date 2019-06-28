@@ -3,7 +3,7 @@
     "authors": [
         "kellyhuang"
     ],
-    "contact": "",
+    "contact": "http://kbase.us/contact-us/",
     "categories": ["active"],
     "widgets": {
         "input": null,
@@ -19,6 +19,84 @@
             "field_type": "text",
             "text_options": {
                 "valid_ws_types": ["KBaseGenomes.Genome"]
+            }
+        },
+        {
+            "id": "gc_content",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+                {
+                "checked_value": 1,
+                "unchecked_value": 0
+                }
+        },
+        {
+            "id": "gc_skew",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "at_content",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "at_skew",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "average",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "scale",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
             }
         }
     ],
@@ -38,6 +116,24 @@
                     "input_parameter": "input_file",
                     "target_property": "input_file",
                     "target_type_transform":"ref"
+                },{
+                    "input_parameter": "gc_content",
+                    "target_property": "gc_content"
+                },{
+                    "input_parameter": "gc_skew",
+                    "target_property": "gc_skew"
+                },{
+                    "input_parameter": "at_content",
+                    "target_property": "at_content"
+                },{
+                    "input_parameter": "at_skew",
+                    "target_property": "at_skew"
+                },{
+                    "input_parameter": "average",
+                    "target_property": "average"
+                },{
+                    "input_parameter": "scale",
+                    "target_property": "scale"
                 }
             ],
             "output_mapping": [

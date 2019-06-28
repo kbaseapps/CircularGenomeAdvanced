@@ -28,12 +28,50 @@ parameters :
         ui-name : |
             Genome
         short-hint : |
-            input file
+            Input genome
+    gc_content :
+        ui-name : |
+            GC Content
+        short-hint :
+            Whether GC content should be shown.
+    gc_skew :
+        ui-name : |
+            GC Skew
+        short-hint :
+            Whether GC skew should be shown.
+    at_content :
+        ui-name : |
+            AT Content
+        short-hint :
+            Whether AT content should be shown.
+    at_skew :
+        ui-name : |
+            AT Skew
+        short-hint :
+            Whether AT skew should be shown.make
+    average :
+        ui-name : |
+            Average
+        short-hint :
+            Whether the GC, GC skew, AT, and AT skew plots should show \
+            the deviation of each value from the average for the entire \
+            genome. The default method of plotting shows each value as \
+            calculated. Specifying this allows plots to better show regions \
+            that differ from the rest of the genome, but the results cannot be \
+            easily distinguish between genomes.
+    scale :
+        ui-name : |
+            Scale
+        short-hint :
+            Whether the GC, GC skew, AT, and AT skew plots should be \
+            scaled to fill the available Y-axis space on the map. This scaling \
+            allows differences to be observed more easily, but the results cannot \
+            be easily compared between genomes.
     output_img:
         ui-name : |
             First parameter
         short-hint : |
-            output image file
+            Output image file
 
 description : |
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar efficitur felis, quis tincidunt sem congue at. Vivamus ornare feugiat faucibus. Fusce tincidunt mattis nunc, nec varius purus convallis quis. Nulla facilisi. In at magna dolor. Suspendisse sit amet felis at arcu auctor dapibus vitae pharetra dui. Nam semper mi quis tortor fermentum mollis. Donec a arcu pharetra, rutrum dolor vitae, rutrum mauris. Donec ornare fringilla sagittis. Nam laoreet est in elementum malesuada. Vestibulum id mi eget urna hendrerit feugiat. Donec et ultrices nulla. Phasellus diam eros, dapibus at tempus nec, semper vel ante.</p>
