@@ -52,7 +52,7 @@
             "optional":true,
             "advanced":false,
             "allow_multiple":false,
-            "default_values":[""],
+            "default_values":["1"],
             "field_type" : "checkbox",
             "checkbox_options":
             {
@@ -91,7 +91,7 @@
             "optional":true,
             "advanced":false,
             "allow_multiple":false,
-            "default_values":[""],
+            "default_values":["1"],
             "field_type" : "checkbox",
             "checkbox_options":
             {
@@ -104,7 +104,7 @@
             "optional":true,
             "advanced":false,
             "allow_multiple":false,
-            "default_values":[""],
+            "default_values":["1"],
             "field_type" : "checkbox",
             "checkbox_options":
             {
@@ -173,8 +173,8 @@
             "text_options":
             {
                 "validate_as": "float",
-                "min_int" : 0,
-                "max_int" : 1
+                "min_int" : 0.0,
+                "max_int" : 1.0
             }
         },
         {
