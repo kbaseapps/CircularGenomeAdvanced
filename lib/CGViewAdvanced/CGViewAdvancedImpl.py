@@ -185,7 +185,7 @@ class CGViewAdvanced:
         pdf = FPDF()
         image = jpg_file
         pdf.add_page()
-        pdf.image(image)
+        pdf.image(image, 0, 0, 800, 800)
         pdf.output(pdf_file, "F")
 
         # Test example output - works
