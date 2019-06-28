@@ -74,8 +74,8 @@ class CGViewAdvanced:
         reading_frames = params['reading_frames']
         orfs = params['orfs']
         combined_orfs = params['combined_orfs']
-        orf_size = params['orf_size']
-        # tick_density = params['tick_density']
+        # orf_size = params['orf_size']
+        tick_density = params['tick_density']
         details = params['details']
         legend = params['legend']
         condensed = params['condensed']
@@ -137,10 +137,10 @@ class CGViewAdvanced:
             cmd.extend(["-orfs", "T"])
         if combined_orfs == 1:
             cmd.extend(["-combined_orfs", "T"])
-        if int(orf_size) != 100:
-            cmd.extend(["-orf_size", str(orf_size)])
-        # if tick_density != 0.5:
-        #     cmd.extend(["-tick_density", str(tick_density)])
+        # if int(orf_size) != 100:
+        #     cmd.extend(["-orf_size", str(orf_size)])
+        if tick_density != 0.5:
+            cmd.extend(["-tick_density", str(tick_density)])
         if details == 0:
             cmd.extend(["-details", "F"])
         if legend == 0:

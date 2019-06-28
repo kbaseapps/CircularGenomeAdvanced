@@ -91,12 +91,12 @@ parameters :
         short-hint :
             Whether open reading frames (ORFs) should be drawn,
             with each strand (forward, reverse) represented by a separate ring.
-    orf_size :
+    tick_density :
         ui-name : |
-            Orf Size
+            Tick Density
         short-hint :
-            The minimum length of ORFs (in codons) to show when using
-            the 'Orfs' or 'Combined Orfs' options. Default is 100.
+            The density of the tick marks on the map. Use a
+            smaller value to make the ticks less dense.
     details :
         ui-name : |
             Details

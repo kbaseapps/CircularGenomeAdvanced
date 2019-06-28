@@ -152,15 +152,17 @@
             }
         },
         {
-            "id": "orf_size",
+            "id": "tick_density",
             "optional":true,
-            "advanced":false,
+            "advanced":true,
             "allow_multiple":false,
-            "default_values":["100"],
+            "default_values":["0.5"],
             "field_type" : "text",
             "text_options":
             {
-                "validate_as": "int"
+                "validate_as": "float",
+                "min_int" : 0.0,
+                "max_int" : 1.0
             }
         },
         {
