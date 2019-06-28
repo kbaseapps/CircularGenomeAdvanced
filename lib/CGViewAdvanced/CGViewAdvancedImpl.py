@@ -173,9 +173,9 @@ class CGViewAdvanced:
         png_file = os.path.join(image_output_dir, base+".png")
         jpg_file = os.path.join(image_output_dir, base+".jpg")
         svg_file = os.path.join(image_output_dir, base+".svg")
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-D", "40", "-W", "600", "-H", "600"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-D", "40", "-W", "600", "-H", "600"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-D", "40", "-W", "600", "-H", "600"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
 
         print("=====image output dir", os.listdir(image_output_dir))
 
@@ -199,7 +199,9 @@ class CGViewAdvanced:
             'direct_html_link_index': 0,
             'html_links':[html_dict],
             'file_links':[png_dict, jpg_dict, svg_dict],
-            'workspace_name': params['workspace_name']
+            'workspace_name': params['workspace_name'],
+            'html_window_height':800,
+            'summary_window_height':800
         })
         output = {
             'report_name': report_info['name'],

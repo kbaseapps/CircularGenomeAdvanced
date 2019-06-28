@@ -76,6 +76,7 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'orfs':0,
                                                              'combined_orfs':0,
                                                              'orf_size': 100,
+                                                             'tick_density': 0.5,
                                                              'details': 1,
                                                              'legend': 1,
                                                              'condensed': 0,
