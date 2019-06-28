@@ -83,25 +83,25 @@ parameters :
         ui-name : |
             Orfs
         short-hint :
-            Whether open reading frames (ORFs) should be drawn, with each \
+            Whether open reading frames (ORFs) should be drawn, with each
             reading frame (1, 2, 3, -1, -2, -3) represented by a separated ring.
     combined_orfs :
         ui-name : |
             Combined Orfs
         short-hint :
-            Whether open reading frames (ORFs) should be drawn, \
+            Whether open reading frames (ORFs) should be drawn,
             with each strand (forward, reverse) represented by a separate ring.
     orf_size :
         ui-name : |
             Orf Size
         short-hint :
-            The minimum length of ORFs (in codons) to show when using \
+            The minimum length of ORFs (in codons) to show when using
             the 'Orfs' or 'Combined Orfs' options. Default is 100.
     tick_density :
         ui-name : |
             Tick Density
         short-hint :
-            The density of the tick marks on the map. Use a \
+            The density of the tick marks on the map. Use a
             smaller value to make the ticks less dense.
     details :
         ui-name : |
@@ -117,32 +117,32 @@ parameters :
         ui-name : |
             Condensed
         short-hint :
-            Whether thin feature rings should be used regardless of \
+            Whether thin feature rings should be used regardless of
             the size of the map.
     feature_labels :
         ui-name : |
             Feature Labels
         short-hint :
-            Whether feature labels read from the GenBank or \
+            Whether feature labels read from the GenBank or
             EMBL file should be drawn.
     orf_labels :
         ui-name : |
             Orf Labels
         short-hint :
-            Whether labels for ORFs that are drawn using the \
+            Whether labels for ORFs that are drawn using the
             'Orfs' or 'Combined_orfs' should be shown.
     use_opacity :
         ui-name : |
             Use Opacity
         short-hint :
-            Whether BLAST hits should be drawn with partial opacity, \
+            Whether BLAST hits should be drawn with partial opacity,
             so that overlapping hits can be visualized.
     show_sequence_features :
         ui-name : |
             Show Sequence Features
         short-hint :
-            Whether to draw features contained in the \
-            supplied '-sequence' file, if it is a GenBank or EMBL file.
+            Whether to draw features contained in the
+            supplied Genome, if it is a GenBank or EMBL file.
 
     output_img:
         ui-name : |
