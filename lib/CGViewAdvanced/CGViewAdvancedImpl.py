@@ -64,13 +64,25 @@ class CGViewAdvanced:
         # Setting all input parameters
         print("=====params", params)
         input_file = params['input_file']
+        linear = params['linear']
         gc_content = params['gc_content']
         gc_skew = params['gc_skew']
         at_content = params['at_content']
         at_skew = params['at_skew']
         average = params['average']
         scale = params['scale']
-
+        reading_frames = params['reading_frames']
+        orfs = params['orfs']
+        combined_orfs = params['combined_orfs']
+        orf_size = params['orf_size']
+        tick_density = params['tick_density']
+        details = params['details']
+        legend = params['legend']
+        condensed = params['condensed']
+        feature_labels = params['feature_labels']
+        orf_labels = params['orf_labels']
+        use_opacity = params['use_opacity']
+        show_sequence_features = params['show_sequence_features']
 
         # Make output directory and subdirectories
         output_dir= os.path.join(self.shared_folder, 'output_folder')
@@ -103,6 +115,10 @@ class CGViewAdvanced:
 
         # Create list of parameters to call
         cmd = []
+        if linear == 1:
+            cmd.extend(["-linear", "T"])
+        else:
+            cmd.extend(["-linear", "F"])
         if gc_content == 0:
             cmd.extend(["-gc_content", "F"])
         if gc_skew == 1:
@@ -115,7 +131,30 @@ class CGViewAdvanced:
             cmd.extend(["-average", "F"])
         if scale == 0:
             cmd.extend(["-scale", "F"])
-
+        if reading_frames == 1:
+            cmd.extend(["-reading_frames", "T"])
+        if orfs == 1:
+            cmd.extend(["-orfs", "T"])
+        if combined_orfs == 1:
+            cmd.extend(["-combined_orfs", "T"])
+        if int(orf_size) != 100:
+            cmd.extend(["-orf_size", str(orf_size)])
+        if tick_density != 0.5:
+            cmd.extend(["-tick_density", str(tick_density)])
+        if details == 0:
+            cmd.extend(["-details", "F"])
+        if legend == 0:
+            cmd.extend(["-legend", "F"])
+        if condensed == 1:
+            cmd.extend(["-condensed", "T"])
+        if feature_labels == 1:
+            cmd.extend(["-feature_labels", "T"])
+        if orf_labels == 1:
+            cmd.extend(["-orf_labels", "T"])
+        if use_opacity == 1:
+            cmd.extend(["-use_opacity", "T"])
+        if show_sequence_features == 0:
+            cmd.extend(["-show_sequence_features", "F"])
         print("====set cmd", cmd)
 
         # Build XML file from Genbank
@@ -123,7 +162,7 @@ class CGViewAdvanced:
         xml_file = os.path.join(xml_output_dir, base+".xml")
         print("=====", os.listdir("/opt/cgview/cgview_xml_builder"))
         print("===== path to gbk", gbk_path)
-        required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file]
+        required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file, "-size", "small"]
         exec_cmd = required_cmd + cmd
         print("=====final cmd", exec_cmd)
         subprocess.call(exec_cmd)
@@ -132,8 +171,10 @@ class CGViewAdvanced:
         # Create image from XML
         os.chdir("/opt/cgview")
         png_file = os.path.join(image_output_dir, base+".png")
+        jpg_file = os.path.join(image_output_dir, base+".jpg")
         svg_file = os.path.join(image_output_dir, base+".svg")
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png"])
+        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg"])
 
         print("=====image output dir", os.listdir(image_output_dir))
@@ -146,8 +187,10 @@ class CGViewAdvanced:
 
         # Create Report
         png_path = os.path.join(png_file)
+        jpg_path = os.path.join(jpg_file)
         svg_path = os.path.join(svg_file)
         png_dict = {"path":png_path, 'name': 'Circular_Genome_Map_PNG'}
+        jpg_dict = {"path":jpg_path, 'name': 'Circular_Genome_Map_JPG'}
         svg_dict = {"path":svg_path, 'name': 'Circular_Genome_Map_SVG'}
 
         html_dict = {'path':png_path,'name':'Circular Genome Map'}
@@ -155,7 +198,7 @@ class CGViewAdvanced:
         report_info = report_client.create_extended_report({
             'direct_html_link_index': 0,
             'html_links':[html_dict],
-            'file_links':[png_dict, svg_dict],
+            'file_links':[png_dict, jpg_dict, svg_dict],
             'workspace_name': params['workspace_name']
         })
         output = {

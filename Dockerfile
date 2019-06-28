@@ -9,9 +9,6 @@ MAINTAINER KBase Developer
 # RUN apt-get update
 RUN cd /opt && \
     apt-get update -qq && \
-#    curl -O -J -L http://wishart.biology.ualberta.ca/cgview/application/cgview.zip && \
-#    unzip cgview.zip && \
-#    rm cgview.zip && \
     git clone https://github.com/happykhan/BRIG.git && \
     cp -r BRIG/cgview ./ && \
     apt-get install -yq --no-install-recommends \

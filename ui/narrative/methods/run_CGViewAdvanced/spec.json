@@ -22,11 +22,24 @@
             }
         },
         {
+            "id": "linear",
+            "optional":false,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
             "id": "gc_content",
             "optional":true,
             "advanced":false,
             "allow_multiple":false,
-            "default_values":[""],
+            "default_values":["1"],
             "field_type" : "checkbox",
             "checkbox_options":
                 {
@@ -98,6 +111,162 @@
                 "checked_value": 1,
                 "unchecked_value": 0
             }
+        },
+        {
+            "id": "reading_frames",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "orfs",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "combined_orfs",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "orf_size",
+            "optional":true,
+            "advanced":false,
+            "allow_multiple":false,
+            "default_values":["100"],
+            "field_type" : "text",
+            "text_options":
+            {
+                "validate_as": "int"
+            }
+        },
+        {
+            "id": "tick_density",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":["0.5"],
+            "field_type" : "text",
+            "text_options":
+            {
+                "validate_as": "float",
+                "min_int" : 0,
+                "max_int" : 1
+            }
+        },
+        {
+            "id": "details",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "legend",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "condensed",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "feature_labels",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "orf_labels",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "use_opacity",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":[""],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
+        },
+        {
+            "id": "show_sequence_features",
+            "optional":true,
+            "advanced":true,
+            "allow_multiple":false,
+            "default_values":["1"],
+            "field_type" : "checkbox",
+            "checkbox_options":
+            {
+                "checked_value": 1,
+                "unchecked_value": 0
+            }
         }
     ],
     "behavior": {
@@ -117,6 +286,9 @@
                     "target_property": "input_file",
                     "target_type_transform":"ref"
                 },{
+                    "input_parameter": "linear",
+                    "target_property": "linear"
+                },{
                     "input_parameter": "gc_content",
                     "target_property": "gc_content"
                 },{
@@ -134,6 +306,18 @@
                 },{
                     "input_parameter": "scale",
                     "target_property": "scale"
+                },{
+                    "input_parameter": "reading_frames",
+                    "target_property": "reading_frames"
+                },{
+                    "input_parameter": "orfs",
+                    "target_property": "orfs"
+                },{
+                    "input_parameter": "combined_orfs",
+                    "target_property": "combined_orfs"
+                },{
+                    "input_parameter": "orf_size",
+                    "target_property": "orf_size"
                 }
             ],
             "output_mapping": [
