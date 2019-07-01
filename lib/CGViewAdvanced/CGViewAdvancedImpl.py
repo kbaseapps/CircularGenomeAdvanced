@@ -119,41 +119,41 @@ class CGViewAdvanced:
             cmd.extend(["-linear", "F"])
         if gc_content == 0:
             cmd.extend(["-gc_content", "F"])
-        if gc_skew == 1:
-            cmd.extend(["-gc_skew", "T"])
-        if at_content == 1:
-            cmd.extend(["-at_content", "T"])
-        if at_skew == 1:
-            cmd.extend(["-at_skew", "T"])
-        if average == 0:
-            cmd.extend(["-average", "F"])
-        if scale == 0:
-            cmd.extend(["-scale", "F"])
-        if reading_frames == 1:
-            cmd.extend(["-reading_frames", "T"])
-        if orfs == 1:
-            cmd.extend(["-orfs", "T"])
-        if combined_orfs == 1:
-            cmd.extend(["-combined_orfs", "T"])
-        if int(orf_size) != 100:
-            cmd.extend(["-orf_size", str(orf_size)])
-        if tick_density != 0.5:
-            cmd.extend(["-tick_density", str(tick_density)])
-        if details == 0:
-            cmd.extend(["-details", "F"])
-        if legend == 0:
-            cmd.extend(["-legend", "F"])
-        if condensed == 1:
-            cmd.extend(["-condensed", "T"])
-        if feature_labels == 1:
-            cmd.extend(["-feature_labels", "T"])
-        if orf_labels == 1:
-            cmd.extend(["-orf_labels", "T"])
-        if use_opacity == 1:
-            cmd.extend(["-use_opacity", "T"])
-        if show_sequence_features == 0:
-            cmd.extend(["-show_sequence_features", "F"])
-        print("====set cmd", cmd)
+        # if gc_skew == 1:
+        #     cmd.extend(["-gc_skew", "T"])
+        # if at_content == 1:
+        #     cmd.extend(["-at_content", "T"])
+        # if at_skew == 1:
+        #     cmd.extend(["-at_skew", "T"])
+        # if average == 0:
+        #     cmd.extend(["-average", "F"])
+        # if scale == 0:
+        #     cmd.extend(["-scale", "F"])
+        # if reading_frames == 1:
+        #     cmd.extend(["-reading_frames", "T"])
+        # if orfs == 1:
+        #     cmd.extend(["-orfs", "T"])
+        # if combined_orfs == 1:
+        #     cmd.extend(["-combined_orfs", "T"])
+        # if int(orf_size) != 100:
+        #     cmd.extend(["-orf_size", str(orf_size)])
+        # if tick_density != 0.5:
+        #     cmd.extend(["-tick_density", str(tick_density)])
+        # if details == 0:
+        #     cmd.extend(["-details", "F"])
+        # if legend == 0:
+        #     cmd.extend(["-legend", "F"])
+        # if condensed == 1:
+        #     cmd.extend(["-condensed", "T"])
+        # if feature_labels == 1:
+        #     cmd.extend(["-feature_labels", "T"])
+        # if orf_labels == 1:
+        #     cmd.extend(["-orf_labels", "T"])
+        # if use_opacity == 1:
+        #     cmd.extend(["-use_opacity", "T"])
+        # if show_sequence_features == 0:
+        #     cmd.extend(["-show_sequence_features", "F"])
+        # print("====set cmd", cmd)
 
         # Build XML file from Genbank
         os.chdir("/opt/cgview/cgview_xml_builder")
