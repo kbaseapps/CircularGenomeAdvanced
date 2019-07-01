@@ -64,6 +64,7 @@ class CGViewAdvanced:
         # Setting all input parameters
         print("=====params", params)
         input_file = params['input_file']
+        title = params['title']
         linear = params['linear']
         gc_content = params['gc_content']
         gc_skew = params['gc_skew']
@@ -115,6 +116,8 @@ class CGViewAdvanced:
 
         # Create list of parameters to call
         cmd = []
+        if not title:
+            cmd.extend(["-title", str(title)])
         if linear == 1:
             cmd.extend(["-linear", "T"])
         if linear == 0:

@@ -65,6 +65,7 @@ class CGViewAdvancedTest(unittest.TestCase):
         # self.assertEqual(ret[...], ...) or other unittest methods
         ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,
                                                              'input_file': '29796/9/1',
+                                                             'title': "WOOOOO",
                                                              'linear': 0,
                                                              'gc_content': 1,
                                                              'gc_skew': 1,
