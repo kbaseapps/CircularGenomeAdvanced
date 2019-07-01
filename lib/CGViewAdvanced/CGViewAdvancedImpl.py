@@ -4,7 +4,7 @@ import logging
 import os
 import ntpath
 import subprocess
-from fpdf import FPDF
+import fpdf
 from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
 from installed_clients.KBaseReportClient import KBaseReport
@@ -115,9 +115,7 @@ class CGViewAdvanced:
 
         # Create list of parameters to call
         cmd = []
-        if linear == 1:
-            cmd.extend(["-linear", "T"])
-        else:
+        if linear == 0:
             cmd.extend(["-linear", "F"])
         if gc_content == 0:
             cmd.extend(["-gc_content", "F"])
@@ -173,20 +171,11 @@ class CGViewAdvanced:
         png_file = os.path.join(image_output_dir, base+".png")
         jpg_file = os.path.join(image_output_dir, base+".jpg")
         svg_file = os.path.join(image_output_dir, base+".svg")
-        pdf_file = os.path.join(image_output_dir, base+".pdf")
-
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
 
         print("=====image output dir", os.listdir(image_output_dir))
-
-        # Create pdf output
-        pdf = FPDF()
-        image = jpg_file
-        pdf.add_page()
-        pdf.image(image, 0, 0, 800, 800)
-        pdf.output(pdf_file, "F")
 
         # Test example output - works
         # os.chdir("/opt/cgview")
@@ -198,11 +187,9 @@ class CGViewAdvanced:
         png_path = os.path.join(png_file)
         jpg_path = os.path.join(jpg_file)
         svg_path = os.path.join(svg_file)
-        pdf_path = os.path.join(pdf_file)
-        png_dict = {"path":png_path, 'name': base+'.png'}
-        jpg_dict = {"path":jpg_path, 'name': base+'.jpg'}
-        svg_dict = {"path":svg_path, 'name': base+'.svg'}
-        pdf_dict = {"path":pdf_path, 'name': base+'.pdf'}
+        png_dict = {"path":png_path, 'name': base+'_PNG'}
+        jpg_dict = {"path":jpg_path, 'name': base+'_JPG'}
+        svg_dict = {"path":svg_path, 'name': base+'_SVG'}
 
         html_dict = {'path':png_path,'name':base+'Circular Genome Map'}
         report_client = KBaseReport(self.callback_url)

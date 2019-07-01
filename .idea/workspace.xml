@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="98bd2ecd-bf37-4a83-87ff-5810cb58023b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1344">
-              <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
+            <state relative-caret-position="366">
+              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
               <folding>
                 <element signature="e#38#52#0" expanded="true" />
               </folding>
@@ -53,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/CGViewAdvanced_server_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="67" column="73" selection-start-line="67" selection-start-column="73" selection-end-line="67" selection-end-column="73" />
+            <state relative-caret-position="751">
+              <caret line="508" column="88" selection-start-line="508" selection-start-column="88" selection-end-line="508" selection-end-column="88" />
               <folding>
                 <element signature="e#951#1015#0" />
               </folding>
@@ -115,9 +116,9 @@
         <option value="$PROJECT_DIR$/test_local/test.cfg" />
         <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" />
         <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" />
-        <option value="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" />
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" />
+        <option value="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" />
       </list>
     </option>
   </component>
@@ -299,7 +300,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py</url>
-          <line>179</line>
+          <line>175</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -327,32 +328,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/prepare_deploy_cfg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/entrypoint.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/CGViewAdvanced_server_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="67" column="73" selection-start-line="67" selection-start-column="73" selection-end-line="67" selection-end-column="73" />
-          <folding>
-            <element signature="e#951#1015#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1470">
@@ -377,12 +352,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/entrypoint.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/prepare_deploy_cfg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1344">
-          <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
+        <state relative-caret-position="366">
+          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
           <folding>
             <element signature="e#38#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/CGViewAdvanced_server_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="751">
+          <caret line="508" column="88" selection-start-line="508" selection-start-column="88" selection-end-line="508" selection-end-column="88" />
+          <folding>
+            <element signature="e#951#1015#0" />
           </folding>
         </state>
       </provider>
