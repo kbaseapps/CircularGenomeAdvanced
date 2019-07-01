@@ -60,12 +60,6 @@ class CGViewAdvanced:
         workspace_name = params['workspace_name']
         if 'input_file' not in params:
             raise ValueError('Parameter input_file is not set in input arguments')
-        if combined_orfs==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Combined Orfs'")
-        if orf_size==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Orf Size'")
-        if orf_labels==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
 
         # Setting all input parameters
         print("=====params", params)
@@ -91,7 +85,13 @@ class CGViewAdvanced:
         use_opacity = params['use_opacity']
         show_sequence_features = params['show_sequence_features']
 
-        #
+        # Raise orfs errors
+        if combined_orfs==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Combined Orfs'")
+        if orf_size==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Orf Size'")
+        if orf_labels==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
 
         # Make output directory and subdirectories
         output_dir= os.path.join(self.shared_folder, 'output_folder')
