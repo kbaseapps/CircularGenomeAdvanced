@@ -29,11 +29,6 @@ parameters :
             Genome
         short-hint : |
             Input genome
-    title :
-        ui-name : |
-            Title
-        short-hint : |
-            A title for the sequence to appear on the map.
     linear :
         ui-name : |
             Linear

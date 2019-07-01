@@ -22,17 +22,6 @@
             }
         },
         {
-            "id": "title",
-            "optional":true,
-            "advanced":false,
-            "allow_multiple":false,
-            "default_values":[""],
-            "field_type" : "text",
-            "text_options":
-            {
-            }
-        },
-        {
             "id": "linear",
             "optional":false,
             "advanced":false,
@@ -283,9 +272,6 @@
                     "input_parameter": "input_file",
                     "target_property": "input_file",
                     "target_type_transform":"ref"
-                },{
-                    "input_parameter": "title",
-                    "target_property": "title"
                 },{
                     "input_parameter": "linear",
                     "target_property": "linear"
