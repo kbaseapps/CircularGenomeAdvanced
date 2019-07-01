@@ -72,7 +72,7 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'at_skew': 0,
                                                              'average': 1,
                                                              'scale': 1,
-                                                             'reading_frames': 0,
+                                                             # 'reading_frames': 0,
                                                              'orfs':0,
                                                              'combined_orfs':0,
                                                              'orf_size': 100,

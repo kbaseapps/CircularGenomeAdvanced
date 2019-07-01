@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98bd2ecd-bf37-4a83-87ff-5810cb58023b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-637">
-              <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
+            <state relative-caret-position="359">
+              <caret line="74" column="29" lean-forward="true" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
               <folding>
                 <element signature="e#38#52#0" expanded="true" />
               </folding>
@@ -56,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/CGViewAdvanced_server_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="87" selection-start-line="87" selection-end-line="509" selection-end-column="65" />
+            <state relative-caret-position="-896">
+              <caret line="75" column="70" lean-forward="true" selection-start-line="75" selection-start-column="70" selection-end-line="75" selection-end-column="70" />
               <folding>
                 <element signature="e#951#1015#0" />
               </folding>
@@ -65,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
-              <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
+            <state relative-caret-position="524">
+              <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -82,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4665">
-              <caret line="311" column="19" selection-start-line="311" selection-start-column="19" selection-end-line="311" selection-end-column="19" />
+            <state relative-caret-position="460">
+              <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -113,17 +116,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/test_local/test.cfg" />
-        <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" />
-        <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" />
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" />
         <option value="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" />
+        <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" />
+        <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1182" />
-    <option name="y" value="308" />
+    <option name="x" value="1340" />
+    <option name="y" value="352" />
     <option name="width" value="1100" />
     <option name="height" value="947" />
   </component>
@@ -235,7 +238,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1182" y="308" width="1100" height="947" extended-state="0" />
+    <frame x="1340" y="352" width="1100" height="947" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2542533" />
@@ -299,7 +302,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py</url>
-          <line>175</line>
+          <line>177</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -320,22 +323,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="98" column="28" selection-start-line="98" selection-start-column="28" selection-end-line="98" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ui/README.md">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4665">
-          <caret line="311" column="19" selection-start-line="311" selection-start-column="19" selection-end-line="311" selection-end-column="19" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kbase.yml">
       <provider selected="true" editor-type-id="text-editor">
@@ -367,23 +356,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="74" column="29" lean-forward="true" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
+          <folding>
+            <element signature="e#38#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/CGViewAdvanced_server_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="87" selection-start-line="87" selection-end-line="509" selection-end-column="65" />
+        <state relative-caret-position="-896">
+          <caret line="75" column="70" lean-forward="true" selection-start-line="75" selection-start-column="70" selection-end-line="75" selection-end-column="70" />
           <folding>
             <element signature="e#951#1015#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py">
+    <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-637">
-          <caret line="66" column="31" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
-          <folding>
-            <element signature="e#38#52#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="460">
+          <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="75" column="47" selection-start-line="75" selection-start-column="47" selection-end-line="75" selection-end-column="47" />
         </state>
       </provider>
     </entry>

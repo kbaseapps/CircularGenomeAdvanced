@@ -113,19 +113,6 @@
             }
         },
         {
-            "id": "reading_frames",
-            "optional":true,
-            "advanced":false,
-            "allow_multiple":false,
-            "default_values":[""],
-            "field_type" : "checkbox",
-            "checkbox_options":
-            {
-                "checked_value": 1,
-                "unchecked_value": 0
-            }
-        },
-        {
             "id": "orfs",
             "optional":true,
             "advanced":false,
@@ -306,9 +293,6 @@
                 },{
                     "input_parameter": "scale",
                     "target_property": "scale"
-                },{
-                    "input_parameter": "reading_frames",
-                    "target_property": "reading_frames"
                 },{
                     "input_parameter": "orfs",
                     "target_property": "orfs"
