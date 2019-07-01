@@ -60,6 +60,9 @@ class CGViewAdvanced:
         workspace_name = params['workspace_name']
         if 'input_file' not in params:
             raise ValueError('Parameter input_file is not set in input arguments')
+        if combined_orfs==1 and orfs == 0:
+            raise ValueError('Parameter input_file is not set in input arguments')
+
 
         # Setting all input parameters
         print("=====params", params)
@@ -84,6 +87,8 @@ class CGViewAdvanced:
         orf_labels = params['orf_labels']
         use_opacity = params['use_opacity']
         show_sequence_features = params['show_sequence_features']
+
+        #
 
         # Make output directory and subdirectories
         output_dir= os.path.join(self.shared_folder, 'output_folder')
@@ -116,7 +121,7 @@ class CGViewAdvanced:
 
         # Create list of parameters to call
         cmd = []
-        if not title:
+        if len(title) != 0:
             cmd.extend(["-title", str(title)])
         if linear == 1:
             cmd.extend(["-linear", "T"])
