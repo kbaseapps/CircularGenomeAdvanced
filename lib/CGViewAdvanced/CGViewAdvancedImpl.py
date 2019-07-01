@@ -185,7 +185,7 @@ class CGViewAdvanced:
         pdf = FPDF()
         image = jpg_file
         pdf.add_page()
-        pdf.image(image, 0, 0, -800, -800)
+        pdf.image(image, 0, 0, 800, 800)
         pdf.output(pdf_file, "F")
 
         # Test example output - works
@@ -209,7 +209,7 @@ class CGViewAdvanced:
         report_info = report_client.create_extended_report({
             'direct_html_link_index': 0,
             'html_links':[html_dict],
-            'file_links':[png_dict, jpg_dict, svg_dict, pdf_dict],
+            'file_links':[png_dict, jpg_dict, svg_dict],
             'workspace_name': params['workspace_name'],
             'html_window_height':800,
             'summary_window_height':800
