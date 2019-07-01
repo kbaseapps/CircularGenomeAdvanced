@@ -125,7 +125,7 @@ class CGViewAdvanced:
         # Create list of parameters to call
         cmd = []
         if len(title) != 0:
-            cmd.extend(["-title", str(title)])
+            cmd.extend(["-title", '"' + str(title) + '"'])
         if linear == 1:
             cmd.extend(["-linear", "T"])
         if linear == 0:
