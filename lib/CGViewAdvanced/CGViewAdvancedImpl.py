@@ -189,9 +189,9 @@ class CGViewAdvanced:
         png_path = os.path.join(png_file)
         jpg_path = os.path.join(jpg_file)
         svg_path = os.path.join(svg_file)
-        png_dict = {"path":png_path, 'name': base+'_PNG'}
-        jpg_dict = {"path":jpg_path, 'name': base+'_JPG'}
-        svg_dict = {"path":svg_path, 'name': base+'_SVG'}
+        png_dict = {"path":png_path, 'name': base+'.png'}
+        jpg_dict = {"path":jpg_path, 'name': base+'.jpg'}
+        svg_dict = {"path":svg_path, 'name': base+'.svg'}
 
         html_dict = {'path':png_path,'name':base+'Circular Genome Map'}
         report_client = KBaseReport(self.callback_url)
