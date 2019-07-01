@@ -193,7 +193,7 @@ class CGViewAdvanced:
         jpg_dict = {"path":jpg_path, 'name': base+'.jpg'}
         svg_dict = {"path":svg_path, 'name': base+'.svg'}
 
-        html_dict = {'path':png_path,'name':base+'Circular Genome Map'}
+        html_dict = {'path':png_path,'name':base+' Map'}
         report_client = KBaseReport(self.callback_url)
         report_info = report_client.create_extended_report({
             'direct_html_link_index': 0,
