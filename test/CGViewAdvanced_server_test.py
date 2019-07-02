@@ -86,6 +86,7 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'use_opacity': 0,
                                                              'show_sequence_features': 1
                                                              })
+
     # def test_linear(self):
     #     ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,
     #                                                          'input_file': '29796/9/1',

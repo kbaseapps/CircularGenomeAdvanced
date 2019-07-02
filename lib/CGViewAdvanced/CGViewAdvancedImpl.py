@@ -45,6 +45,7 @@ class CGViewAdvanced:
         pass
 
 
+
     def run_CGViewAdvanced(self, ctx, params):
         """
         This example function accepts any number of parameters and returns results in a KBaseReport
