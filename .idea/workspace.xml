@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="98bd2ecd-bf37-4a83-87ff-5810cb58023b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/CGViewAdvanced_server_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" afterDir="false" />
-    </list>
+    <list default="true" id="98bd2ecd-bf37-4a83-87ff-5810cb58023b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,8 +75,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
+            <state relative-caret-position="15">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -132,6 +126,7 @@
         <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/spec.json" />
         <option value="$PROJECT_DIR$/lib/CGViewAdvanced/CGViewAdvancedImpl.py" />
         <option value="$PROJECT_DIR$/ui/narrative/methods/run_CGViewAdvanced/display.yaml" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -250,7 +245,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1191" y="352" width="1249" height="947" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22700912" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -410,8 +404,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
