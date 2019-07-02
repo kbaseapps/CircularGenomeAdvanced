@@ -158,7 +158,7 @@ class CGViewAdvanced:
             cmd.extend(["-feature_labels", "T"])
         if orf_labels == 1:
             cmd.extend(["-orf_labels", "T"])
-        if use_opacity == 1:
+        if use_pacity == 1:
             cmd.extend(["-use_opacity", "T"])
         if show_sequence_features == 0:
             cmd.extend(["-show_sequence_features", "F"])
