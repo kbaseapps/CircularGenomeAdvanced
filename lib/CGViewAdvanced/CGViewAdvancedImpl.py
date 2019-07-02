@@ -28,7 +28,7 @@ class CGViewAdvanced:
     ######################################### noqa
     VERSION = "0.0.1"
     GIT_URL = "https://github.com/kellyhuang21/CircularGenomeAdvanced.git"
-    GIT_COMMIT_HASH = "071a0569fc734e4012498d3e594f54d381166109"
+    GIT_COMMIT_HASH = "4beb228f8fd231e6fcb2ec846d3cf1fe0c87518e"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -43,7 +43,6 @@ class CGViewAdvanced:
                             level=logging.INFO)
         #END_CONSTRUCTOR
         pass
-
 
 
     def run_CGViewAdvanced(self, ctx, params):
@@ -73,7 +72,7 @@ class CGViewAdvanced:
         average = params['average']
         scale = params['scale']
         # reading_frames = params['reading_frames']
-        # orfs = params['orfs']
+        orfs = params['orfs']
         combined_orfs = params['combined_orfs']
         orf_size = params['orf_size']
         tick_density = params['tick_density']
@@ -86,12 +85,12 @@ class CGViewAdvanced:
         show_sequence_features = params['show_sequence_features']
 
         # Raise orfs errors
-        # if combined_orfs==1 and orfs == 0:
-        #     raise ValueError("'Orfs' parameter must be selected to use 'Combined Orfs'")
-        # if orf_size==1 and orfs == 0:
-        #     raise ValueError("'Orfs' parameter must be selected to use 'Orf Size'")
-        # if orf_labels==1 and orfs == 0:
-        #     raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
+        if combined_orfs==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Combined Orfs'")
+        if orf_size==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Orf Size'")
+        if orf_labels==1 and orfs == 0:
+            raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
 
         # Make output directory and subdirectories
         output_dir= os.path.join(self.shared_folder, 'output_folder')
@@ -141,12 +140,12 @@ class CGViewAdvanced:
             cmd.extend(["-scale", "F"])
         # if reading_frames == 1:
         #     cmd.extend(["-reading_frames", "T"])
-        # if orfs == 1:
-        #     cmd.extend(["-orfs", "T"])
-        # if combined_orfs == 1:
-        #     cmd.extend(["-combined_orfs", "T"])
-        # if int(orf_size) != 100:
-        #     cmd.extend(["-orf_size", str(orf_size)])
+        if orfs == 1:
+            cmd.extend(["-orfs", "T"])
+        if combined_orfs == 1:
+            cmd.extend(["-combined_orfs", "T"])
+        if int(orf_size) != 100:
+            cmd.extend(["-orf_size", str(orf_size)])
         if tick_density != 0.5:
             cmd.extend(["-tick_density", str(tick_density)])
         if details == 0:
@@ -157,19 +156,13 @@ class CGViewAdvanced:
             cmd.extend(["-condensed", "T"])
         if feature_labels == 1:
             cmd.extend(["-feature_labels", "T"])
-        # if orf_labels == 1:
-        #     cmd.extend(["-orf_labels", "T"])
+        if orf_labels == 1:
+            cmd.extend(["-orf_labels", "T"])
         if use_opacity == 1:
             cmd.extend(["-use_opacity", "T"])
         if show_sequence_features == 0:
             cmd.extend(["-show_sequence_features", "F"])
-        if 'orfs' in params and params['orfs'] != None:
-            if combined_orfs == 1:
-                cmd.extend(["-combined_orfs", "T"])
-            if int(orf_size) != 100:
-                cmd.extend(["-orf_size", str(orf_size)])
-            if orf_labels == 1:
-                cmd.extend(["-orf_labels", "T"])
+
         # Build XML file from Genbank
         os.chdir("/opt/cgview/cgview_xml_builder")
         xml_file = os.path.join(xml_output_dir, base+".xml")
