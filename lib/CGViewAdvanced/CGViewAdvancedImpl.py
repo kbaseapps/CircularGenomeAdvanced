@@ -62,7 +62,6 @@ class CGViewAdvanced:
             raise ValueError('Parameter input_file is not set in input arguments')
 
         # Setting all input parameters
-        print("=====params", params)
         input_file = params['input_file']
         # title = params['title']
         linear = params['linear']
@@ -107,7 +106,6 @@ class CGViewAdvanced:
         if not os.path.exists(gbk_dir):
             os.makedirs(gbk_dir)
 
-
         # Turn genome object to Genbank file
         gfu = GenomeFileUtil(self.callback_url)
         gbk = gfu.genome_to_genbank({'genome_ref':input_file})
@@ -117,9 +115,7 @@ class CGViewAdvanced:
         name_gbk = base + ".gbk"
         subprocess.call(["cp", gbk_file, gbk_dir])
         gbff_path = os.path.join(gbk_dir, name_gbff)
-        print("===== from", gbff_path)
         gbk_path = os.path.join(gbk_dir, name_gbk)
-        print("===== to", gbk_path)
         subprocess.call(["mv", gbff_path, gbk_path])
 
         # Create list of parameters to call
@@ -166,18 +162,14 @@ class CGViewAdvanced:
             cmd.extend(["-use_opacity", "T"])
         if show_sequence_features == 0:
             cmd.extend(["-show_sequence_features", "F"])
-        print("====set cmd", cmd)
 
         # Build XML file from Genbank
         os.chdir("/opt/cgview/cgview_xml_builder")
         xml_file = os.path.join(xml_output_dir, base+".xml")
-        print("=====", os.listdir("/opt/cgview/cgview_xml_builder"))
-        print("===== path to gbk", gbk_path)
         required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file, "-size", "small"]
         exec_cmd = required_cmd + cmd
         print("=====final cmd", exec_cmd)
         subprocess.call(exec_cmd)
-        print("=====xml output dir", os.listdir(xml_output_dir))
 
         # Create image from XML
         os.chdir("/opt/cgview")
@@ -187,14 +179,12 @@ class CGViewAdvanced:
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
         subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-
         print("=====image output dir", os.listdir(image_output_dir))
 
         # Test example output - works
         # os.chdir("/opt/cgview")
         # test_output_file_path = os.path.join(output_dir, "cybercell.png")
         # subprocess.call(["java", "-jar", "cgview.jar", "-i", "cybercell.xml", "-o", test_output_file_path, "-f", "png"])
-        print("==== output png correctly", os.listdir(output_dir))
 
         # Create Report
         png_path = os.path.join(png_file)
