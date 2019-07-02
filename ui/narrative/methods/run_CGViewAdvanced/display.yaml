@@ -126,12 +126,6 @@ parameters :
         short-hint :
             Whether labels for ORFs that are drawn using the
             'Orfs' or 'Combined_orfs' should be shown.
-    use_opacity :
-        ui-name : |
-            Use Opacity
-        short-hint :
-            Whether BLAST hits should be drawn with partial opacity,
-            so that overlapping hits can be visualized.
     show_sequence_features :
         ui-name : |
             Show Sequence Features

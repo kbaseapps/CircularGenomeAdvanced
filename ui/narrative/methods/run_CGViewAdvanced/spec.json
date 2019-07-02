@@ -230,19 +230,6 @@
             }
         },
         {
-            "id": "use_opacity",
-            "optional":true,
-            "advanced":true,
-            "allow_multiple":false,
-            "default_values":[""],
-            "field_type" : "checkbox",
-            "checkbox_options":
-            {
-                "checked_value": 1,
-                "unchecked_value": 0
-            }
-        },
-        {
             "id": "show_sequence_features",
             "optional":true,
             "advanced":true,
@@ -320,9 +307,6 @@
                 },{
                     "input_parameter": "orf_labels",
                     "target_property": "orf_labels"
-                },{
-                    "input_parameter": "use_opacity",
-                    "target_property": "use_opacity"
                 },{
                     "input_parameter": "show_sequence_features",
                     "target_property": "show_sequence_features"

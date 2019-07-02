@@ -74,7 +74,7 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'average': 1,
                                                              'scale': 1,
                                                              # 'reading_frames': 0,
-                                                             # 'orfs':0,
+                                                             'orfs':0,
                                                              'combined_orfs':0,
                                                              'orf_size': 100,
                                                              'tick_density': 0.5,
@@ -83,7 +83,6 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'condensed': 0,
                                                              'feature_labels': 0,
                                                              'orf_labels': 0,
-                                                             'use_opacity': 0,
                                                              'show_sequence_features': 1
                                                              })
 
