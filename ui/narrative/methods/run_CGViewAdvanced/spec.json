@@ -113,19 +113,6 @@
             }
         },
         {
-            "id": "orfs",
-            "optional":true,
-            "advanced":false,
-            "allow_multiple":false,
-            "default_values":[""],
-            "field_type" : "checkbox",
-            "checkbox_options":
-            {
-                "checked_value": 1,
-                "unchecked_value": 0
-            }
-        },
-        {
             "id": "combined_orfs",
             "optional":true,
             "advanced":false,
@@ -256,6 +243,15 @@
             }
         }
     ],
+    "parameter-groups": [
+        {
+            "id": "orfs",
+            "parameters": ["combined_orfs", "orf_size", "orf_labels"],
+            "optional": true,
+            "allow_multiple": false,
+            "with_border": true
+        }
+    ],
     "behavior": {
         "service-mapping": {
             "url": "",
@@ -297,12 +293,6 @@
                     "input_parameter": "orfs",
                     "target_property": "orfs"
                 },{
-                    "input_parameter": "combined_orfs",
-                    "target_property": "combined_orfs"
-                },{
-                    "input_parameter": "orf_size",
-                    "target_property": "orf_size"
-                },{
                     "input_parameter": "tick_density",
                     "target_property": "tick_density"
                 },{
@@ -317,9 +307,6 @@
                 },{
                     "input_parameter": "feature_labels",
                     "target_property": "feature_labels"
-                },{
-                    "input_parameter": "orf_labels",
-                    "target_property": "orf_labels"
                 },{
                     "input_parameter": "use_opacity",
                     "target_property": "use_opacity"

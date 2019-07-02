@@ -28,7 +28,7 @@ class CGViewAdvanced:
     ######################################### noqa
     VERSION = "0.0.1"
     GIT_URL = "https://github.com/kellyhuang21/CircularGenomeAdvanced.git"
-    GIT_COMMIT_HASH = "071a0569fc734e4012498d3e594f54d381166109"
+    GIT_COMMIT_HASH = "4beb228f8fd231e6fcb2ec846d3cf1fe0c87518e"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER

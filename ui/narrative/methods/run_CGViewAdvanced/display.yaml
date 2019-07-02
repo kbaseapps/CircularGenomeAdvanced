@@ -74,12 +74,6 @@ parameters :
             scaled to fill the available Y-axis space on the map. This scaling \
             allows differences to be observed more easily, but the results cannot \
             be easily compared between genomes.
-    orfs :
-        ui-name : |
-            Orfs
-        short-hint :
-            Whether open reading frames (ORFs) should be drawn, with each
-            reading frame (1, 2, 3, -1, -2, -3) represented by a separated ring.
     combined_orfs :
         ui-name : |
             Combined Orfs ('Orfs' must be selected)
@@ -138,13 +132,26 @@ parameters :
         short-hint :
             Whether to draw features contained in the
             supplied Genome, if it is a GenBank or EMBL file.
-
     output_img:
         ui-name : |
             Output Image
         short-hint : |
             Output image file
 
+parameter-groups :
+    orfs :
+        ui name : |
+            Orfs
+        short hint : |
+            Whether open reading frames (ORFs) should be drawn, with each
+            reading frame (1, 2, 3, -1, -2, -3) represented by a separated ring.
+
 description : |
     <p>GCView is to serve as a component of sequence annotation pipelines, as a means of generating visual output </p>
 
+publications :
+    -
+        pmid : 18411202
+        display-text: |
+            Grant JR, Stothard P. The CGView Server: a comparative genomics tool for circular genomes. Nucleic Acids Res. 2008;36(Web Server issue):W181–W184. doi:10.1093/nar/gkn179
+        link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2447734
