@@ -2,6 +2,7 @@
 import os
 import time
 import unittest
+import shutil
 from configparser import ConfigParser
 
 from CGViewAdvanced.CGViewAdvancedImpl import CGViewAdvanced
@@ -9,6 +10,7 @@ from CGViewAdvanced.CGViewAdvancedServer import MethodContext
 from CGViewAdvanced.authclient import KBaseAuth as _KBaseAuth
 
 from installed_clients.WorkspaceClient import Workspace
+from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
 
 class CGViewAdvancedTest(unittest.TestCase):
@@ -52,7 +54,16 @@ class CGViewAdvancedTest(unittest.TestCase):
             cls.wsClient.delete_workspace({'workspace': cls.wsName})
             print('Test workspace was deleted')
 
+    def get_genome_ref(cls, self):
+        test_genome_path = os.path.join(cls.cfg['scratch'], 'QGKT01000001.1.gb')
+        shutil.copy('data/QGKT01000001.1.gb', test_genome_path)
+        gfu = GenomeFileUtil(self.callback_url)
+        genome_ref = gfu.genbank_to_genome({'workspace': self.getWsName(),
+                                     'genome_name': "test_genome",
+                                     'file': {'path': test_genome_path}})
+        return genome_ref
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
+
     def test_1(self):
         # Prepare test objects in workspace if needed using
         # self.getWsClient().save_objects({'workspace': self.getWsName(),

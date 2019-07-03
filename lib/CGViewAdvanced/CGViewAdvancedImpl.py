@@ -2,12 +2,9 @@
 #BEGIN_HEADER
 import logging
 import os
-import ntpath
-import subprocess
-import fpdf
-from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
-from installed_clients.KBaseReportClient import KBaseReport
+import CGViewAdvanced.Utils.CGViewUtil as cgu
+
 #END_HEADER
 
 
@@ -28,7 +25,7 @@ class CGViewAdvanced:
     ######################################### noqa
     VERSION = "0.0.1"
     GIT_URL = "https://github.com/kellyhuang21/CircularGenomeAdvanced.git"
-    GIT_COMMIT_HASH = "4beb228f8fd231e6fcb2ec846d3cf1fe0c87518e"
+    GIT_COMMIT_HASH = "606ad2d7f36955fa75817c22429f903c7d036018"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -44,137 +41,70 @@ class CGViewAdvanced:
         #END_CONSTRUCTOR
         pass
 
-    # Validate mandatory keys and orfs
-    def process_params(self, params):
-        if 'workspace_name' not in params:
-            raise ValueError('Parameter workspace_name is not set in input arguments')
-        if 'input_file' not in params:
-            raise ValueError('Parameter input_file is not set in input arguments')
-        # Raise orfs errors
-        orfs = params['orfs']
-        if params['combined_orfs']==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Combined Orfs'")
-        if params['orf_size']==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Orf Size'")
-        if params['orf_labels']==1 and orfs == 0:
-            raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
-
-    # Perform GenomeFileUtil operations
-    def fetch_genome_files(self, params, gbk_dir):
-        # Turn genome object to Genbank file
-        gfu = GenomeFileUtil(self.callback_url)
-        gbk = gfu.genome_to_genbank({'genome_ref':params['input_file']})
-        gbk_file = gbk["genbank_file"]["file_path"]
-        base = ntpath.basename(gbk_file).rsplit(".", 1)[0]
-        name_gbff =  base + ".gbff"
-        name_gbk = base + ".gbk"
-        subprocess.call(["cp", gbk_file, gbk_dir])
-        gbff_path = os.path.join(gbk_dir, name_gbff)
-        gbk_path = os.path.join(gbk_dir, name_gbk)
-        subprocess.call(["mv", gbff_path, gbk_path])
-        return base, gbk_path
-
-    #build command for cgview_xml_builder
-    def build_cgview_xml_cmd(self, params):
-        # Create list of parameters to call
-        cmd = []
-        # if len(title) != 0:
-        #     cmd.extend(["-title", '"' + str(title) + '"'])
-        if params['linear'] == 1:
-            cmd.extend(["-linear", "T"])
-        if params['linear'] == 0:
-            cmd.extend(["-linear", "F"])
-        if params['gc_content'] == 0:
-            cmd.extend(["-gc_content", "F"])
-        if params['gc_skew'] == 0:
-            cmd.extend(["-gc_skew", "F"])
-        if params['at_content'] == 1:
-            cmd.extend(["-at_content", "T"])
-        if params['at_skew'] == 1:
-            cmd.extend(["-at_skew", "T"])
-        if params['average'] == 0:
-            cmd.extend(["-average", "F"])
-        if params['scale'] == 0:
-            cmd.extend(["-scale", "F"])
-        # if reading_frames == 1:
-        #     cmd.extend(["-reading_frames", "T"])
-        if params['orfs'] == 1:
-            cmd.extend(["-orfs", "T"])
-        if params['combined_orfs'] == 1:
-            cmd.extend(["-combined_orfs", "T"])
-        if int(params['orf_size']) != 100:
-            cmd.extend(["-orf_size", str(params['orf_size'])])
-        if params['tick_density'] != 0.5:
-            cmd.extend(["-tick_density", str(params['tick_density'])])
-        if params['details'] == 0:
-            cmd.extend(["-details", "F"])
-        if params['legend'] == 0:
-            cmd.extend(["-legend", "F"])
-        if params['condensed'] == 1:
-            cmd.extend(["-condensed", "T"])
-        if params['feature_labels'] == 1:
-            cmd.extend(["-feature_labels", "T"])
-        if params['orf_labels'] == 1:
-            cmd.extend(["-orf_labels", "T"])
-        if params['show_sequence_features'] == 0:
-            cmd.extend(["-show_sequence_features", "F"])
-        return cmd
-
-    def run_cmd_to_build_xml(self, cmd, xml_output_dir, base, gbk_path):
-        # Build XML file from Genbank
-        os.chdir("/opt/cgview/cgview_xml_builder")
-        xml_file = os.path.join(xml_output_dir, base+".xml")
-        required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file, "-size", "small"]
-        exec_cmd = required_cmd + cmd
-        print("=====final cmd", exec_cmd)
-        subprocess.call(exec_cmd)
-        return xml_file
-
-    def create_imgs_from_xml(self, image_output_dir, xml_file, base):
-        # Create image from XML
-        os.chdir("/opt/cgview")
-        png_file = os.path.join(image_output_dir, base+".png")
-        jpg_file = os.path.join(image_output_dir, base+".jpg")
-        svg_file = os.path.join(image_output_dir, base+".svg")
-        png_path = os.path.join(png_file)
-        jpg_path = os.path.join(jpg_file)
-        svg_path = os.path.join(svg_file)
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-        subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-        return png_path, jpg_path, svg_path
-
-    def gen_report(self, params, png_path, jpg_path, svg_path, base):
-        # Create Report
-        png_dict = {"path":png_path, 'name': base+'.png'}
-        jpg_dict = {"path":jpg_path, 'name': base+'.jpg'}
-        svg_dict = {"path":svg_path, 'name': base+'.svg'}
-
-        html_dict = {'path':png_path,'name':base+' Map'}
-        report_client = KBaseReport(self.callback_url)
-        report_info = report_client.create_extended_report({
-            'direct_html_link_index': 0,
-            'html_links':[html_dict],
-            'file_links':[png_dict, jpg_dict, svg_dict],
-            'workspace_name': params['workspace_name'],
-            'html_window_height':800,
-            'summary_window_height':800
-        })
-        return report_info
 
     def run_CGViewAdvanced(self, ctx, params):
         """
-        This example function accepts any number of parameters and returns results in a KBaseReport
-        :param params: instance of mapping from String to unspecified object
-        :returns: instance of type "ReportResults" -> structure: parameter
-           "report_name" of String, parameter "report_ref" of String
+        run_CGViewAdvanced: run CGView
+        ref: http://wishart.biology.ualberta.ca/cgview/application.html
+        :param params: instance of type "CGViewInputs" (required params:
+           input_file: ref to Genome workspace_name: the name of the
+           workspace it gets saved to optional params: linear: Genome is
+           linear. gc_content: GC content shown gc_skew: GC skew shown
+           at_content: AT content shown at_skew: AT skew shown average: GC,
+           GC skew, AT, and AT skew plots should show the deviation of each
+           value from the average for the entire genome. scale: GC, GC skew,
+           AT, and AT skew plots should be scaled to fill the available
+           Y-axis space on the map. orfs: ORFs drawn. combined_orfs: ORFs
+           should drawn with forward and reverse strand represented by a
+           separate ring. orf_size: The minimum length of ORFs (in codons) to
+           show. tick_density: The density of the tick marks on the map.
+           details: Sequence information legend drawn legend: Feature legend
+           drawn condensed: Thin feature rings used regardless of map size.
+           feature_labels: Feature labels read from the GenBank or EMBL file
+           drawn. orf_labels: Labels for ORFs drawn. show_sequence_features:
+           Draw features contained in the file if it is a Genbank or EMBL
+           file. ref:
+           https://github.com/happykhan/BRIG/tree/master/cgview/cgview_xml_bui
+           lder) -> structure: parameter "input_file" of type "obj_ref" (An
+           X/Y/Z style reference), parameter "linear" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "gc_content" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "gc_skew" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "at_content" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "at_skew" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "average" of type "boolean" (A boolean - 0 for false, 1 for true.
+           @range (0, 1)), parameter "scale" of type "boolean" (A boolean - 0
+           for false, 1 for true. @range (0, 1)), parameter "orfs" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "combined_orfs" of type "boolean" (A boolean - 0 for
+           false, 1 for true. @range (0, 1)), parameter "orf_size" of Long,
+           parameter "tick_density" of Double, parameter "details" of type
+           "boolean" (A boolean - 0 for false, 1 for true. @range (0, 1)),
+           parameter "legend" of type "boolean" (A boolean - 0 for false, 1
+           for true. @range (0, 1)), parameter "condensed" of type "boolean"
+           (A boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "feature_labels" of type "boolean" (A boolean - 0 for false, 1 for
+           true. @range (0, 1)), parameter "orf_labels" of type "boolean" (A
+           boolean - 0 for false, 1 for true. @range (0, 1)), parameter
+           "show_sequence_features" of type "boolean" (A boolean - 0 for
+           false, 1 for true. @range (0, 1))
+        :returns: instance of type "CGViewResults" (report_name: report name
+           generated by KBaseReport report_ref: report reference generated by
+           KBaseReport) -> structure: parameter "report_name" of String,
+           parameter "report_ref" of String
         """
+
         # ctx is the context object
         # return variables are: output
         #BEGIN run_CGViewAdvanced
-        self.process_params(params)
 
-        # Make output directory and subdirectories
+        cgu.process_params(params)
+
+        '''
+        Make output directory and subdirectories
+        '''
         output_dir= os.path.join(self.shared_folder, 'output_folder')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -188,15 +118,15 @@ class CGViewAdvanced:
         if not os.path.exists(gbk_dir):
             os.makedirs(gbk_dir)
 
-        base, gbk_path = self.fetch_genome_files(params, gbk_dir)
+        base, gbk_path = cgu.fetch_genome_files(self, params, gbk_dir)
 
-        cmd = self.build_cgview_xml_cmd(params)
+        cmd = cgu.build_cgview_xml_cmd(params)
 
-        xml_file = self.run_cmd_to_build_xml(cmd, xml_output_dir, base, gbk_path)
+        xml_file = cgu.run_cmd_to_build_xml(cmd, xml_output_dir, base, gbk_path)
 
-        png_path, jpg_path, svg_path = self.create_imgs_from_xml(image_output_dir, xml_file, base)
+        png_path, jpg_path, svg_path = cgu.create_imgs_from_xml(image_output_dir, xml_file, base)
 
-        report_info = self.gen_report(params, png_path, jpg_path, svg_path, base)
+        report_info = cgu.gen_report(self, params, png_path, jpg_path, svg_path, base)
 
         # Test example output - works
         # os.chdir("/opt/cgview")

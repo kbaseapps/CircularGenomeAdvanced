@@ -7,7 +7,7 @@ module CGViewAdvanced {
         A boolean - 0 for false, 1 for true.
         @range (0, 1)
     */
-    typedef int float boolean;
+    typedef int boolean;
 
     /*
         An X/Y/Z style reference
@@ -70,7 +70,7 @@ module CGViewAdvanced {
     typedef structure {
         string report_name;
         string report_ref;
-    } CGViewInputs;
+    } CGViewResults;
 
     /*
     run_CGViewAdvanced: run CGView
@@ -78,5 +78,5 @@ module CGViewAdvanced {
     */
 
     funcdef run_CGViewAdvanced(CGViewInputs params)
-        returns (CGViewInputs output) authentication required;
+        returns (CGViewResults output) authentication required;
 };
