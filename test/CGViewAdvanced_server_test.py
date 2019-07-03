@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 import time
 import unittest
 import shutil
@@ -8,7 +9,7 @@ from configparser import ConfigParser
 from CGViewAdvanced.CGViewAdvancedImpl import CGViewAdvanced
 from CGViewAdvanced.CGViewAdvancedServer import MethodContext
 from CGViewAdvanced.authclient import KBaseAuth as _KBaseAuth
-
+from CGViewAdvanced.Utils import CGViewUtil as cgu
 from installed_clients.WorkspaceClient import Workspace
 from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
@@ -54,17 +55,82 @@ class CGViewAdvancedTest(unittest.TestCase):
             cls.wsClient.delete_workspace({'workspace': cls.wsName})
             print('Test workspace was deleted')
 
-    def get_genome_ref(cls, self):
-        test_genome_path = os.path.join(cls.cfg['scratch'], 'QGKT01000001.1.gb')
-        shutil.copy('data/QGKT01000001.1.gb', test_genome_path)
-        gfu = GenomeFileUtil(self.callback_url)
-        genome_ref = gfu.genbank_to_genome({'workspace': self.getWsName(),
-                                     'genome_name': "test_genome",
-                                     'file': {'path': test_genome_path}})
-        return genome_ref
-    # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
+    def getWsClient(cls):
+        return cls.__class__.ws
 
-    def test_1(self):
+    def getWsName(cls):
+        if hasattr(cls.__class__, 'wsName'):
+            return cls.__class__.wsName
+        suffix = int(time.time() * 1000)
+        wsName = "test_CGViewAdvanced_" + str(suffix)
+        cls.__class__.wsName = wsName
+        return wsName
+
+    def get_genome_ref(cls):
+        test_genome_path = os.path.join(cls.scratch, 'QGKT01000001.1.gb')
+        shutil.copy('data/QGKT01000001.1.gb', test_genome_path)
+        print("====dir", os.listdir("data"))
+        gfu = GenomeFileUtil(cls.callback_url)
+        genome_ref = gfu.genbank_to_genome({'workspace_name': cls.getWsName(),
+                                            'genome_name': "test_genome",
+                                            'file': {'path': test_genome_path}})
+        return genome_ref['genome_ref']
+
+    def get_testing_params(cls, default=True):
+        genome_ref = cls.get_genome_ref()
+        if default:
+            ret = {'input_file': genome_ref,
+                              'linear': 0,
+                              'gc_content': 1,
+                              'gc_skew': 1,
+                              'at_content': 0,
+                              'at_skew': 0,
+                              'average': 1,
+                              'scale': 1,
+                              'orfs': 0,
+                              'combined_orfs': 0,
+                              'orf_size': 100,
+                              'tick_density': 0.5,
+                              'details': 1,
+                              'legend': 1,
+                              'condensed': 0,
+                              'feature_labels': 0,
+                              'orf_labels': 0,
+                              'show_sequence_features': 1
+                              }
+        else:
+            ret = {'input_file': genome_ref,
+                               'linear': 1,
+                               'gc_content': 0,
+                               'gc_skew': 0,
+                               'at_content': 1,
+                               'at_skew': 1,
+                               'average': 0,
+                               'scale': 0,
+                               'orfs': 1,
+                               'combined_orfs': 1,
+                               'orf_size': 200,
+                               'tick_density': 0.7,
+                               'details': 0,
+                               'legend': 0,
+                               'condensed': 1,
+                               'feature_labels': 1,
+                               'orf_labels': 1,
+                               'show_sequence_features': 0
+                               }
+        return ret
+
+    # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
+    def test_command_to_execute(cls):
+        params_default = cls.get_testing_params()
+        params_opposite = cls.get_testing_params(False)
+        cmd_default = cgu.build_cgview_xml_cmd(params_default)
+        cmd_opposite = cgu.build_cgview_xml_cmd(params_opposite)
+        cls.assertEqual(cmd_default, ['-linear', 'F'])
+        cls.assertEqual(cmd_opposite, ['-linear', 'T', '-gc_content', 'F', '-gc_skew', 'F', '-at_content', 'T', '-at_skew', 'T', '-average', 'F', '-scale', 'F', '-orfs', 'T', '-combined_orfs', 'T', '-orf_size', '200', '-tick_density', '0.7', '-details', 'F', '-legend', 'F', '-condensed', 'T', '-feature_labels', 'T', '-orf_labels', 'T', '-show_sequence_features', 'F'])
+
+
+    def test_all_files_generated(self):
         # Prepare test objects in workspace if needed using
         # self.getWsClient().save_objects({'workspace': self.getWsName(),
         #                                  'objects': []})
@@ -74,9 +140,9 @@ class CGViewAdvancedTest(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
+        genome_ref = self.get_genome_ref()
         ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,
-                                                             'input_file': '29796/9/1',
-                                                             # 'title': "HElloOoOo0 WoRlD",
+                                                             'input_file': genome_ref,
                                                              'linear': 0,
                                                              'gc_content': 1,
                                                              'gc_skew': 1,
@@ -84,7 +150,6 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'at_skew': 0,
                                                              'average': 1,
                                                              'scale': 1,
-                                                             # 'reading_frames': 0,
                                                              'orfs':0,
                                                              'combined_orfs':0,
                                                              'orf_size': 100,
@@ -96,6 +161,23 @@ class CGViewAdvancedTest(unittest.TestCase):
                                                              'orf_labels': 0,
                                                              'show_sequence_features': 1
                                                              })
+        # Create file paths
+        output_dir = os.path.join(self.scratch, 'output_folder')
+        image_output_dir = os.path.join(output_dir, 'image_outputs')
+        xml_output_dir = os.path.join(output_dir, 'xml_outputs')
+
+        # xml file generated
+        has_xml = os.path.join(xml_output_dir, 'KBase_derived_test_genome.xml')
+        self.assertTrue(has_xml)
+
+        # # all image files generated
+        has_png = os.path.join(image_output_dir, 'KBase_derived_test_genome.png')
+        has_jpg = os.path.join(image_output_dir, 'KBase_derived_test_genome.jpg')
+        has_svg = os.path.join(image_output_dir, 'KBase_derived_test_genome.svg')
+        self.assertTrue(has_png)
+        self.assertTrue(has_jpg)
+        self.assertTrue(has_svg)
+
 
     # def test_linear(self):
     #     ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,

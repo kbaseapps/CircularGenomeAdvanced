@@ -85,7 +85,6 @@ def build_cgview_xml_cmd(params):
 
 # Build XML file from command list
 def run_cmd_to_build_xml(cmd, xml_output_dir, base, gbk_path):
-    # Build XML file from Genbank
     os.chdir("/opt/cgview/cgview_xml_builder")
     xml_file = os.path.join(xml_output_dir, base+".xml")
     required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file, "-size", "small"]
