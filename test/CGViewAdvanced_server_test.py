@@ -68,8 +68,7 @@ class CGViewAdvancedTest(unittest.TestCase):
 
     def get_genome_ref(cls):
         test_genome_path = os.path.join(cls.scratch, 'QGKT01000001.1.gb')
-        shutil.copy('data/QGKT01000001.1.gb', test_genome_path)
-        print("====dir", os.listdir("data"))
+        shutil.copy('/kb/module/test/data/QGKT01000001.1.gb', test_genome_path)
         gfu = GenomeFileUtil(cls.callback_url)
         genome_ref = gfu.genbank_to_genome({'workspace_name': cls.getWsName(),
                                             'genome_name': "test_genome",
@@ -121,15 +120,15 @@ class CGViewAdvancedTest(unittest.TestCase):
         return ret
 
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
-    # def test_command_to_execute(cls):
-    #     genome_ref = cls.get_genome_ref()
-    #     params_default = cls.get_testing_params()
-    #     params_opposite = cls.get_testing_params(False)
-    #
-    #     cmd_default = cgu.build_cgview_xml_cmd(params_default)
-    #     cmd_opposite = cgu.build_cgview_xml_cmd(params_opposite)
-    #     cls.assertEqual(cmd_default, ['-linear', 'F'])
-    #     cls.assertEqual(cmd_opposite, ['-linear', 'T', '-gc_content', 'F', '-gc_skew', 'F', '-at_content', 'T', '-at_skew', 'T', '-average', 'F', '-scale', 'F', '-orfs', 'T', '-combined_orfs', 'T', '-orf_size', '200', '-tick_density', '0.7', '-details', 'F', '-legend', 'F', '-condensed', 'T', '-feature_labels', 'T', '-orf_labels', 'T', '-show_sequence_features', 'F'])
+    # # Make sure all parameters are generated
+    def test_command_to_execute(cls):
+        params_default = cls.get_testing_params()
+        params_opposite = cls.get_testing_params(False)
+        print("=== params opposite", params_opposite)
+        cmd_default = cgu.build_cgview_xml_cmd(params_default)
+        cmd_opposite = cgu.build_cgview_xml_cmd(params_opposite)
+        cls.assertEqual(cmd_default, ['-linear', 'F'])
+        cls.assertEqual(cmd_opposite, ['-linear', 'T', '-gc_content', 'F', '-gc_skew', 'F', '-at_content', 'T', '-at_skew', 'T', '-average', 'F', '-scale', 'F', '-orfs', 'T', '-combined_orfs', 'T', '-orf_size', '200', '-tick_density', '0.7', '-details', 'F', '-legend', 'F', '-condensed', 'T', '-feature_labels', 'T', '-orf_labels', 'T', '-show_sequence_features', 'F'])
 
 
     def test_all_files_generated(self):
