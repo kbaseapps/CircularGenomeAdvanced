@@ -11,6 +11,7 @@ from CGViewAdvanced.CGViewAdvancedServer import MethodContext
 from CGViewAdvanced.authclient import KBaseAuth as _KBaseAuth
 from CGViewAdvanced.Utils import CGViewUtil as cgu
 from installed_clients.WorkspaceClient import Workspace
+from installed_clients.DataFileUtilClient import DataFileUtil
 from installed_clients.GenomeFileUtilClient import GenomeFileUtil
 
 
@@ -45,10 +46,11 @@ class CGViewAdvancedTest(unittest.TestCase):
         cls.serviceImpl = CGViewAdvanced(cls.cfg)
         cls.scratch = cls.cfg['scratch']
         cls.callback_url = os.environ['SDK_CALLBACK_URL']
+        cls.dfu = DataFileUtil(cls.callback_url)
         suffix = int(time.time() * 1000)
-        cls.wsName = "test_ContigFilter_" + str(suffix)
+        cls.wsName = "test_CGViewAdvanced_" + str(suffix)
         ret = cls.wsClient.create_workspace({'workspace': cls.wsName})  # noqa
-
+        cls.wsId = ret[0]
     @classmethod
     def tearDownClass(cls):
         if hasattr(cls, 'wsName'):
@@ -56,24 +58,29 @@ class CGViewAdvancedTest(unittest.TestCase):
             print('Test workspace was deleted')
 
     def getWsClient(cls):
-        return cls.__class__.ws
+        return cls.__class__.wsClient
 
     def getWsName(cls):
         if hasattr(cls.__class__, 'wsName'):
             return cls.__class__.wsName
         suffix = int(time.time() * 1000)
-        wsName = "test_CGViewAdvanced_" + str(suffix)
+        wsName = "test_CGViewAdvanced_" +suffix
         cls.__class__.wsName = wsName
         return wsName
 
     def get_genome_ref(cls):
+        if hasattr(cls.__class__, 'genome_ref'):
+            return cls.__class__.genome_ref
         test_genome_path = os.path.join(cls.scratch, 'QGKT01000001.1.gb')
         shutil.copy('/kb/module/test/data/QGKT01000001.1.gb', test_genome_path)
         gfu = GenomeFileUtil(cls.callback_url)
-        genome_ref = gfu.genbank_to_genome({'workspace_name': cls.getWsName(),
+        genome_upload = gfu.genbank_to_genome({'workspace_name': cls.getWsName(),
                                             'genome_name': "test_genome",
                                             'file': {'path': test_genome_path}})
-        return genome_ref['genome_ref']
+        genome_ref = genome_upload['genome_ref']
+        print("=====ref", genome_ref)
+        cls.__class__.genome_ref = genome_ref
+        return genome_ref
 
     def get_testing_params(cls, default=True):
         genome_ref = cls.get_genome_ref()
@@ -119,16 +126,41 @@ class CGViewAdvancedTest(unittest.TestCase):
                                }
         return ret
 
+    def get_ws_testing_params(cls, linear=0, gc_content=1, gc_skew=1, at_content=0, at_skew=0, average=1,
+                              scale=1, orfs=0, combined_orfs=0, orf_size=100, tick_density=0.5, details=1,
+                              legend=1, condensed=0, feature_labels=0, orf_labels=0, show_sequence_features=1):
+        genome_ref = cls.get_genome_ref()
+        ret = {'workspace_name': cls.wsName,
+               'input_file': genome_ref,
+               'linear': linear,
+               'gc_content': gc_content,
+               'gc_skew': gc_skew,
+               'at_content': at_content,
+               'at_skew': at_skew,
+               'average': average,
+               'scale': scale,
+               'orfs':orfs,
+               'combined_orfs':combined_orfs,
+               'orf_size': orf_size,
+               'tick_density': tick_density,
+               'details': details,
+               'legend': legend,
+               'condensed': condensed,
+               'feature_labels': feature_labels,
+               'orf_labels': orf_labels,
+               'show_sequence_features': show_sequence_features
+               }
+        return ret
     # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
     # # Make sure all parameters are generated
-    def test_command_to_execute(cls):
-        params_default = cls.get_testing_params()
-        params_opposite = cls.get_testing_params(False)
-        print("=== params opposite", params_opposite)
+    def test_command_to_execute(self):
+        self.get_genome_ref()
+        params_default = self.get_testing_params()
+        params_opposite = self.get_testing_params(False)
         cmd_default = cgu.build_cgview_xml_cmd(params_default)
         cmd_opposite = cgu.build_cgview_xml_cmd(params_opposite)
-        cls.assertEqual(cmd_default, ['-linear', 'F'])
-        cls.assertEqual(cmd_opposite, ['-linear', 'T', '-gc_content', 'F', '-gc_skew', 'F', '-at_content', 'T', '-at_skew', 'T', '-average', 'F', '-scale', 'F', '-orfs', 'T', '-combined_orfs', 'T', '-orf_size', '200', '-tick_density', '0.7', '-details', 'F', '-legend', 'F', '-condensed', 'T', '-feature_labels', 'T', '-orf_labels', 'T', '-show_sequence_features', 'F'])
+        self.assertEqual(cmd_default, ['-linear', 'F'])
+        self.assertEqual(cmd_opposite, ['-linear', 'T', '-gc_content', 'F', '-gc_skew', 'F', '-at_content', 'T', '-at_skew', 'T', '-average', 'F', '-scale', 'F', '-orfs', 'T', '-combined_orfs', 'T', '-orf_size', '200', '-tick_density', '0.7', '-details', 'F', '-legend', 'F', '-condensed', 'T', '-feature_labels', 'T', '-orf_labels', 'T', '-show_sequence_features', 'F'])
 
 
     def test_all_files_generated(self):
@@ -141,27 +173,7 @@ class CGViewAdvancedTest(unittest.TestCase):
         #
         # Check returned data with
         # self.assertEqual(ret[...], ...) or other unittest methods
-        genome_ref = self.get_genome_ref()
-        ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,
-                                                             'input_file': genome_ref,
-                                                             'linear': 0,
-                                                             'gc_content': 1,
-                                                             'gc_skew': 1,
-                                                             'at_content': 0,
-                                                             'at_skew': 0,
-                                                             'average': 1,
-                                                             'scale': 1,
-                                                             'orfs':0,
-                                                             'combined_orfs':0,
-                                                             'orf_size': 100,
-                                                             'tick_density': 0.5,
-                                                             'details': 1,
-                                                             'legend': 1,
-                                                             'condensed': 0,
-                                                             'feature_labels': 0,
-                                                             'orf_labels': 0,
-                                                             'show_sequence_features': 1
-                                                             })
+        ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, self.get_ws_testing_params())
         # Create file paths
         output_dir = os.path.join(self.scratch, 'output_folder')
         image_output_dir = os.path.join(output_dir, 'image_outputs')
@@ -169,18 +181,19 @@ class CGViewAdvancedTest(unittest.TestCase):
 
         # xml file generated
         has_xml = os.path.join(xml_output_dir, 'KBase_derived_test_genome.xml')
-        self.assertTrue(has_xml)
+        self.assertTrue(os.path.exists(has_xml))
 
-        # # all image files generated
+        # all image files generated
         has_png = os.path.join(image_output_dir, 'KBase_derived_test_genome.png')
         has_jpg = os.path.join(image_output_dir, 'KBase_derived_test_genome.jpg')
         has_svg = os.path.join(image_output_dir, 'KBase_derived_test_genome.svg')
-        self.assertTrue(has_png)
-        self.assertTrue(has_jpg)
-        self.assertTrue(has_svg)
+        self.assertTrue(os.path.exists(has_png))
+        self.assertTrue(os.path.exists(has_jpg))
+        self.assertTrue(os.path.exists(has_svg))
 
 
-    # def test_linear(self):
+
+# def test_linear(self):
     #     ret = self.serviceImpl.run_CGViewAdvanced(self.ctx, {'workspace_name': self.wsName,
     #                                                          'input_file': '29796/9/1',
     #                                                          'linear': 1,

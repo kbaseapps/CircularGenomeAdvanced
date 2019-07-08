@@ -1,4 +1,3 @@
-import logging
 import os
 import ntpath
 import subprocess
@@ -22,9 +21,8 @@ def process_params(params):
     if params['orf_labels']==1 and orfs == 0:
         raise ValueError("'Orfs' parameter must be selected to use 'Orf Labels'")
 
-# Perform GenomeFileUtil operations
+# Perform GenomeFileUtil operations and create Genbank file from KBase Genome object
 def fetch_genome_files(self, params, gbk_dir):
-    # Turn genome object to Genbank file
     gfu = GenomeFileUtil(self.callback_url)
     gbk = gfu.genome_to_genbank({'genome_ref':params['input_file']})
     gbk_file = gbk["genbank_file"]["file_path"]
@@ -90,7 +88,11 @@ def run_cmd_to_build_xml(cmd, xml_output_dir, base, gbk_path):
     required_cmd = ["perl", "cgview_xml_builder.pl", "-sequence", gbk_path, "-output", xml_file, "-size", "small"]
     exec_cmd = required_cmd + cmd
     print("=====final cmd", exec_cmd)
-    subprocess.call(exec_cmd)
+    p = subprocess.Popen(exec_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    (stdout, stderr) = p.communicate()
+    if p.returncode != 0:
+        print(stderr)
     return xml_file
 
 # Create images from XML file
@@ -102,9 +104,27 @@ def create_imgs_from_xml(image_output_dir, xml_file, base):
     png_path = os.path.join(png_file)
     jpg_path = os.path.join(jpg_file)
     svg_path = os.path.join(svg_file)
-    subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-    subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
-    subprocess.call(["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"])
+    # Create PNG
+    png_cmd = ["java", "-jar", "cgview.jar", "-i", xml_file, "-o", png_file, "-f", "png", "-A", "12", "-D", "12", "-W", "800", "-H", "800"]
+    p = subprocess.Popen(png_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    (stdout, stderr) = p.communicate()
+    if p.returncode != 0:
+        print(stderr)
+    # Create JPG
+    jpg_cmd = ["java", "-jar", "cgview.jar", "-i", xml_file, "-o", jpg_file, "-f", "jpg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"]
+    p = subprocess.Popen(jpg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    (stdout, stderr) = p.communicate()
+    if p.returncode != 0:
+        print(stderr)
+    # Create SVG
+    svg_cmd = ["java", "-jar", "cgview.jar", "-i", xml_file, "-o", svg_file, "-f", "svg", "-A", "12", "-D", "12", "-W", "800", "-H", "800"]
+    p = subprocess.Popen(svg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    (stdout, stderr) = p.communicate()
+    if p.returncode != 0:
+        print(stderr)
     return png_path, jpg_path, svg_path
 
 # Generate report

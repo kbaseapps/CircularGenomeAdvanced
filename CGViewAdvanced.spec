@@ -42,6 +42,8 @@ module CGViewAdvanced {
     */
 
     typedef structure {
+        int workspace_id;
+        string workspace_name;
         obj_ref input_file;
         boolean linear;
         boolean gc_content;
