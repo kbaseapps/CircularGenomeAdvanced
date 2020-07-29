@@ -23,8 +23,8 @@ class CGViewAdvanced:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.0.1"
-    GIT_URL = "https://github.com/kellyhuang21/CircularGenomeAdvanced.git"
+    VERSION = "0.0.2"
+    GIT_URL = "https://github.com/kbaseapps/CircularGenomeAdvanced.git"
     GIT_COMMIT_HASH = "606ad2d7f36955fa75817c22429f903c7d036018"
 
     #BEGIN_CLASS_HEADER
