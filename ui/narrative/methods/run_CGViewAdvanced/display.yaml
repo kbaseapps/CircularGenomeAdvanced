@@ -140,5 +140,5 @@ parameters :
             Output image file
 
 description : |
-    <p>GCView is to serve as a component of sequence annotation pipelines, as a means of generating visual output </p>
+    <p>CGView is to serve as a component of sequence annotation pipelines, as a means of generating visual output </p>
 
